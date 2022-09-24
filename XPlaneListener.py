@@ -1,7 +1,6 @@
 import struct,socket
 
 
-
 class XPlaneListener:
     def __init__(self,xPlaneIP,xPlaneRecievePort,udpBufferSize):
         self.xPlaneIP = xPlaneIP
@@ -9,7 +8,7 @@ class XPlaneListener:
         self.udpBufferSize = udpBufferSize
         self.xPlaneMessageList = list()
 
-
+        
         """         Frame Rate          """
         self.f_act_sec      = None
         self.f_sim_sec      = None
@@ -124,6 +123,33 @@ class XPlaneListener:
         self.sbrak_postn    = None
 
         """         gear/brakes         """
+        self.gear_0_1       = None
+        self.wbrak_part     = None
+        self.lbrak_part     = None
+        self.rbrak_part     = None
+
+        """      Angular moments        """
+        self.L_ftlb         = None
+        self.M_ftlb         = None
+        self.N_ftlb         = None
+        self.Q_rad_s        = None
+        self.P_rad_s        = None
+        self.R_rad_s        = None
+
+        """     Pitch, roll, headings   """
+        self.pitch_deg      = None
+        self.roll_deg       = None
+        self.hding_true     = None
+        self.hding_mag      = None
+
+        """    AoA, side-slip, paths    """
+
+
+
+
+
+
+
 
 
 
