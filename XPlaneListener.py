@@ -143,16 +143,17 @@ class XPlaneListener:
         self.hding_mag      = None
 
         """    AoA, side-slip, paths    """
+        self.alpha_deg      = None
+        self.beta_deg       = None
+        self.hpath_deg      = None
+        self.vpath_deg      = None
+        self.slip_deg       = None
 
+        """      mag compass            """
+        self.mag_comp       = None
+        self.mavar_deg      = None
 
-
-
-
-
-
-
-
-
+        """     lat, lon, altitude      """
         self.lat_deg        = None
         self.long_deg       = None
         self.alt_ftmsl      = None
@@ -161,6 +162,67 @@ class XPlaneListener:
         self.alt_ind        = None
         self.lat_south      = None
         self.lon_west       = None
+
+        """  loc, vel, dist traveled    """
+        self.X_m            = None
+        self.Y_m            = None
+        self.Z_m            = None
+        self.vX_m_s         = None
+        self.vY_m_s         = None
+        self.vZ_m_s         = None
+        self.dist_ft        = None
+        self.dist_nm        = None
+
+        """     all planes: lat         """
+        self.lat_n_deg      = None
+
+        """     all planes: lon         """
+        self.lon_n_deg      = None
+
+        """     all planes: alt         """
+        self.alt_n_ftmsl    = None
+
+        """     throttle actual         """
+        self.thron_part     = None
+
+        """   feather-norm-beta-revers  """
+        self.moden_0123     = None
+
+        """         prop setting        """
+        self.propn_set      = None
+
+        """     Mixture setting         """
+        self.mixtn_ratio    = None
+
+        """     carb heat setting       """
+        self.heatn_ratio    = None
+
+        """     Cowl flap setting       """
+        self.cowln_set      = None
+
+        """     Magneto settings        """
+        self.magnn_set      = None
+
+        """     Starter timeout         """
+        self.starn_sec      = None
+
+        """     Engine power            """
+        self.power_n_hp     = None
+
+        """     Engine thrust           """
+        self.thrst_n_lb     = None
+
+        """     Engine torque           """
+        self.trq_n_ftlb     = None
+
+        """     Engine RPM           """
+        self.rpm_n_engin    = None
+
+
+
+
+
+
 
 
 

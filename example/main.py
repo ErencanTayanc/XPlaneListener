@@ -1,4 +1,3 @@
-import socket,struct
 from XPlaneListener import XPlaneListener
 
 
@@ -15,5 +14,3 @@ while(True):
     clientIP  = "Client IP Address:{}".format(address)
 
 
-
-    
