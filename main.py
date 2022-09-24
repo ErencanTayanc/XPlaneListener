@@ -19,6 +19,6 @@ while(True):
     XPlaneListener.temp()
     clientIP  = "Client IP Address:{}".format(address)
 
-    
+
 
     

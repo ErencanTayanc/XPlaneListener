@@ -1,4 +1,7 @@
+from asyncio.windows_events import NULL
 import struct,socket
+
+from sqlalchemy import null
 
 class XPlaneListener:
     def __init__(self,xPlaneIP,xPlaneRecievePort,udpBufferSize):
@@ -6,6 +9,61 @@ class XPlaneListener:
         self.xPlaneRecievePort = xPlaneRecievePort
         self.udpBufferSize = udpBufferSize
         self.xPlaneMessageList = list()
+
+
+        """         Frame Rate          """
+        self.f_act_sec      = null
+        self.f_sim_sec      = null
+        self.frame_time     = null
+        self.cpu_time       = null
+        self.gpu_time       = null
+        self.grnd_ratio     = null
+        self.flit_ratio     = null
+        
+        """         Times               """
+        self.real_time      = null
+        self.totl_time      = null
+        self.missn_time     = null
+        self.timer_time     = null
+        self.zulu_time      = null
+        self.local_time     = null
+        self.hobbs_time     = null
+
+        """         Sim stats           """
+        self.explo_DIM      = null
+        self.explo_USE      = null
+        self.cratr_DIM      = null
+        self.cratr_USE      = null
+        self.puffs_TOT      = null
+        self.puffs_VIS      = null
+        self.tris_vis       = null
+        self.q_depth        = null
+
+        """         Speeds              """
+        self.Vind_kias      = null
+        self.Vind_keas      = null
+        self.Vtrue_ktas     = null
+        self.Vtrue_ktgs     = null
+        self.Vind_mph       = null
+        self.Vtrue_mphas    = null
+        self.Vtrue_mphgs    = null
+
+
+
+
+
+        self.lat_deg        = null
+        self.long_deg       = null
+        self.alt_ftmsl      = null
+        self.alt_ftagl      = null
+        self.on_runwy       = null
+        self.alt_ind        = null
+        self.lat_south      = null
+        self.lon_west       = null
+
+
+
+
 
     def startListener(self):
         xPlaneSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)  # Create a datagram socket
@@ -36,25 +94,10 @@ class XPlaneListener:
 
     def temp(self):
         for xPlaneMessage in self.xPlaneMessageList:
-            print(xPlaneMessage[0])
+            xPlaneMessageIndex = xPlaneMessage[0]
+            if xPlaneMessageIndex == 20:           
+                self.lat_deg = (xPlaneMessage[1])
+                self.long_deg = (xPlaneMessage[2])
         
 
 
-
-dataIndex =	{
-  0: 	"Frame Rate",
-  1: 	"Times",
-  2: 	"Sim stats",
-  3: 	"Speeds",
-  4: 	"Mach,VVI,g-load",
-  5: 	"Weather",
-  6: 	"Aircraft atmosphere",
-  7: 	"System pressures",
-  8: 	"Joystick aileron/elevator/rudder",
-  9: 	"Other flight controls",
-  10: 	"Artificial Stability aileron/elevator/rudder",
-  11: 	"Flight controls aileron/elevator/rudder",
-  12: 	"Wing sweep & thrust vectoring",
-  13:   "Trim,flap,stats, & speedbreaks",
-  14:   "Gear & brakes"
-}
