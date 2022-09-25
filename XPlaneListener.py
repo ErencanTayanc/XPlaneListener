@@ -215,11 +215,142 @@ class XPlaneListener:
         """     Engine torque           """
         self.trq_n_ftlb     = None
 
-        """     Engine RPM           """
+        """     Engine RPM              """
         self.rpm_n_engin    = None
 
+        """     prop RPM                """
+        self.rpm_n_prop     = None
 
+        """     prop pitch              """
+        self.ptch_n_deg     = None
 
+        """     propwash/jetwasg        """
+        self.pwash_kt       = None
+
+        """     N1                      """
+        self.N1_n_pcnt      = None
+
+        """     N2                      """
+        self.N2_n_pcnt      = None
+
+        """     MP                      """
+        self.MP_n_inhg      = None
+
+        """     EPR                     """
+        self.EPR_n_aprt     = None
+
+        """         FF                  """
+        self.FF_n_lb_h      = None
+
+        """         ITT                 """
+        self.ITT_n_deg      = None
+
+        """         EGT                 """
+        self.EGT_n_deg      = None
+
+        """         CHT                 """
+        self.CHT_n_deg      = None        
+
+        """       Oil pressure          """
+        self.OILP_n_psi     = None        
+
+        """       Oil temp              """
+        self.OILT_n_deg     = None 
+
+        """     Fuel pressure           """
+        self.FUEP_n_psi     = None
+
+        """     Generator amperage      """
+        self.genr_n_amp     = None
+
+        """     Battery amperage        """
+        self.batt_n_amp     = None
+
+        """     Battery voltage         """
+        self.batt_n_volt    = None
+
+        """     Fuel pump on/off        """
+        self.pump_n_0_1     = None
+
+        """     Idle speed lo/hi        """
+        self.idle_n_0_1     = None
+
+        """     Battery on/off          """
+        self.batt_n_0_1     = None
+
+        """     Generator on/off        """
+        self.genr_n_0_1     = None
+
+        """     Inverter on/off         """
+        self.invr_n_0_1     = None
+
+        """     FADEC on/off            """
+        self.fadec_0_1      = None
+
+        """     Igniter on/off          """
+        self.igni_n_0_1     = None
+
+        """     Fuel weights            """
+        self.fuel_n_lb      = None
+
+        """     payload weights and CG  """
+        self.empty_lb       = None
+        self.payld_lb       = None
+        self.fuel_totlb     = None
+        self.jetti_lb       = None
+        self.curnt_lb       = None
+        self.maxim_lb       = None
+        self.cg_ftref       = None
+
+        """     aero forces             """
+        self.lift_lb        = None
+        self.drag_lb        = None
+        self.side_lb        = None
+
+        """     Engine forces           """
+        self.norml_lb       = None
+        self.axial_lb       = None
+        self.side_lb        = None
+
+        """   landing gear vert force   """
+        self.gear_lb        = None
+
+        """     Landing gear deployment """
+        self.gear_rat       = None
+
+        """     lift over drag coeffs   """
+        self.L_D_ratio      = None
+        self.cl_total       = None
+        self.cd_total       = None
+        self.L_D__etaP      = None
+
+        """     prop efficiency         """
+        self.Peff_n_ratio   = None
+
+        """     defs: ailerons          """
+        self.Lailn_n_deg    = None
+        self.Railn_n_deg    = None
+
+        """     defs: roll spoilers     """
+        self.Lsplr_n_deg    = None
+        self.Rsplr_n_deg    = None
+
+        """     defs: elevators         """
+        self.elev_n_deg     = None
+
+        """     defs: rudders           """
+        self.rudr_n_deg     = None
+
+        """     defs: yaw brakes        """
+        self.Lyawb_deg      = None 
+        self.Ryawb_deg      = None 
+
+        """     Control forces          """
+        self.pitch_lb       = None
+        self.roll_lb        = None
+        self.hdng_lb        = None
+        self.l_brk_lb       = None
+        self.r_brk_lb       = None
 
 
 
@@ -231,13 +362,13 @@ class XPlaneListener:
     def startListener(self):
         xPlaneSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)  # Create a datagram socket
         xPlaneSocket.bind((self.xPlaneIP, self.xPlaneRecievePort))  # Bind to address and ip        
-        print("UDP server up and listening")
+        print("UDP server up and listening...")
         return xPlaneSocket
 
 
         
     def readMessage(self,message):
-        message = message[5:]   # Remove "DATA*" prefix from message
+        message = message[5:]               # Remove "DATA*" prefix from message
         
         messageCount = len(message)//36     # Devide and cast to int
         xPlaneMessage = list()              # Create empty list
@@ -258,7 +389,7 @@ class XPlaneListener:
     def temp(self):
         for xPlaneMessage in self.xPlaneMessageList:
             xPlaneMessageIndex = xPlaneMessage[0]
-            if xPlaneMessageIndex == 20:           
+            if xPlaneMessageIndex == 20:
                 self.lat_deg = (xPlaneMessage[1])
                 self.long_deg = (xPlaneMessage[2])
         
