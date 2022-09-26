@@ -352,11 +352,361 @@ class XPlaneListener:
         self.l_brk_lb       = None
         self.r_brk_lb       = None
 
+        """  total vert thrust vects    """
+        self.vert_n_tvect   = None
+        
+        """  total lat thrust vects     """
+        self.latr_n_tvect   = None        
+        
+        """  Pitch cyclic disc tilts    """
+        self.pitch_cycli    = None   
 
+        """  Roll cyclic disc tilts     """
+        self.roll_cycli     = None   
 
+        """  Pitch cyclic flapping      """
+        self.pitch_flap     = None   
 
+        """  Roll cyclic flapping       """
+        self.roll_flap      = None   
 
+        """   grnd effect lift, wings   """
+        self.wing_n_L_cl_   = None
+        self.wing_n_R_cl_   = None
+        
+        """  grnd effect drag, wings    """
+        self.wing_n_Lcdi_   = None
+        self.wing_n_Rcdi_   = None
 
+        """ grnd effect wash, wings     """
+        self.wing_n_wash_   = None
+
+        """ grnd effect lift, stabs     """
+        self.hstab_L_cl_    = None
+        self.hstab_R_cl_    = None
+        self.vstb1_cl_      = None
+
+        """ grnd effect drag, stabs     """
+        self.hstab_Lcdi_    = None
+        self.hstab_Rcd,_    = None
+        self.vstb_n_cdi_    = None
+
+        """ grnd effect wash, stabs     """
+        self.hstab_wash_    = None
+        self.vstb_n_wash_   = None
+
+        """ grnd effect lift, props     """
+        self.prop_n_cl_     = None
+
+        """ grnd effect drag, props     """
+        self.prop_n_cdi_    = None
+
+        """         Wing lift           """
+        self.wing_n_lift    = None
+
+        """         Wing drag           """
+        self.wing_n_drag    = None
+        
+        """         stab lift           """
+        self.hstab_lift     = None
+        self.vstb_n_lift    = None
+                
+        """         stab drag           """
+        self.hstab_drag     = None
+        self.vstb_n_drag    = None
+        
+        """     COM 1/2 frequency       """
+        self.COM_n_freq     = None
+        self.COM_n_stby     = None
+        self.COM_xmt        = None
+        
+        """     NAV 1/2 frequency       """
+        self.NAV_n_freq     = None
+        self.NAV_n_stby     = None
+        self.NAV_n_type     = None
+        
+        """     NAV 1/2 NAV 1/2 OBS     """
+        self.NAV_n_OBS      = None
+        self.NAV_n_s_crs    = None
+        self.NAV_n_flag     = None
+        
+        """     NAV n deflections       """
+        self.NAV_n_n_typ    = None
+        self.NAV_n_to_fr    = None
+        self.NAV_n_m_crs    = None
+        self.NAV_n_r_brg    = None
+        self.NAV_n_dme_d    = None
+        self.NAV_n_h_def    = None
+        self.NAV_n_v_def    = None
+        
+        """     ADF 1/2 status          """
+        self.ADF_n_freq     = None
+        self.ADF_n_card     = None
+        self.ADF_n_r_brg    = None
+        self.ADF_n_n_typ    = None
+        
+        """     DME status              """
+        self.DME_nav01      = None
+        self.DME_mode       = None
+        self.DME_found      = None
+        self.DME_dist       = None
+        self.DME_speed      = None
+        self.DME_time       = None
+        self.DME_n_type     = None
+        self.DME_3_freq     = None
+        
+        """     GPS status              """
+        self.GPS_mode       = None
+        self.GPS_index      = None
+        self.dist_nm        = None
+        self.OBS_mag        = None
+        self.crs_mag        = None
+        self.rel_brng       = None
+        self.hdef_dots      = None
+        self.vdef_dots      = None
+        
+        """     XPNDR status            """
+        self.trans_mode     = None
+        self.trans_sett     = None
+        self.trans_ID       = None
+        self.trans_inter    = None
+        
+        """     Marker status           """
+        self.OM_morse       = None
+        self.MM_morse       = None
+        self.IM_morse       = None
+        self.audio_activ    = None
+        
+        """     Switches 1: electrical  """
+        self.avio_0_1       = None
+        self.nav_lite       = None
+        self.beacn_lite     = None
+        self.strob_lite     = None
+        self.land_lite      = None
+        self.taxi_lite      = None
+        
+        """     Switches 2: EFIS        """
+        self.ECAM_mode      = None
+        self.EFIS_sel_n     = None
+        self.HSI_sel_n      = None
+        self.HSI_arc        = None
+        self.map_r_sel      = None
+        self.map_range      = None
+        
+        """  switches 3: AP/f-dir/HUD   """
+        self.ap_src         = None              
+        self.fdir_mode      = None     
+        self.fdir_ptch      = None           
+        self.fdir_roll      = None           
+        self.HUD_power      = None           
+        self.HUD_brite      = None
+        
+        """ Switches 4: anti-ice        """           
+        self.deice_all      = None
+        self.deice_inlet    = None
+        self.deice_prop     = None
+        self.deice_windo    = None
+        self.deice_n_pitot  = None
+        self.deice_AOA      = None
+        self.deice_wing     = None
+        
+        """ Switches 5: anti-ice/fuel   """
+        self.alt_air_n      = None
+        self.auto_ignit     = None
+        self.manul_ignit    = None
+        self.l_eng_tank     = None
+        self.r_eng_tank     = None
+        
+        """ switches 6: clutch/astab    """
+        self.prero_engag    = None
+        self.clutc_ratio    = None
+        self.art_ptch       = None
+        self.art_roll       = None
+        self.yaw_damp       = None
+        self.auto_brake     = None
+        
+        """     switches 7: misc        """
+        self.tot_energ      = None
+        self.radal_feet     = None
+        self.prop_sync      = None
+        self.fethr_mode     = None
+        self.puffr_power    = None
+        self.water_scoop    = None
+        self.arrst_hook     = None
+        self.chute_deply    = None
+        
+        """     Annunciators: general   """
+        self.mast_cau       = None
+        self.mast_war       = None
+        self.mast_accp      = None
+        self.auto_disco     = None
+        self.low_vacum      = None
+        self.low_volt       = None
+        self.fuel_quant     = None
+        self.hyd_press      = None    
+        
+        """     Annunciators: general   """
+        self.yawda_on       = None  
+        self.sbrk_on        = None  
+        self.GPWS_warn      = None  
+        self.ice_warn       = None  
+        self.pitot_off      = None  
+        self.cabin_althi    = None  
+        self.afthr_arm      = None
+        self.ospd_time      = None
+        
+        """     Annunciators: engine    """
+        self.fuel_press     = None
+        self.oil_press      = None
+        self.oil_temp       = None
+        self.inver_warn     = None
+        self.gener_warn     = None
+        self.chip_detec     = None
+        self.engin_fire     = None
+        self.ignit_0_1      = None
+        
+        """     autopilot arms          """
+        self.nav_arm        = None
+        self.alt_arm        = None
+        self.app_arm        = None
+        self.vnav_enab      = None
+        self.vnav_arm       = None
+        self.vnav_time      = None
+        self.gp_enabl       = None
+        self.app_typ        = None
+        
+        """     autopilot modes         """
+        self.auto_throt     = None
+        self.mode_hding     = None
+        self.mode_alt       = None
+        self.bac_0_1        = None
+        self.app_           = None
+        self.sync_butn      = None
+        
+        """     Autopilot values        """
+        self.set_speed      = None
+        self.set_hding      = None
+        self.set_vvi        = None
+        self.dial_alt       = None
+        self.vnav_alt       = None
+        self.use_alt        = None
+        self.sync_roll      = None
+        self.sync_pitch     = None
+        
+        """     Weapon status           """
+        self.hdng_delta     = None
+        self.pitch_delta    = None
+        self.R_d_sec        = None
+        self.Q_d_sec        = None
+        self.rudd_ratio     = None
+        self.elev_ratio     = None
+        self.V_kts          = None
+        self.dist_ft        = None
+        
+        """ Pressurization status       """
+        self.alt_set        = None
+        self.vvi_set        = None
+        self.alt_act        = None
+        self.vvi_act        = None
+        self.test_time      = None
+        self.diff_psi       = None
+        self.dump_all       = None
+        self.bleed.src      = None
+        
+        """     APU/GPU status          """
+        self.APU_eqipd      = None
+        self.APU_swtch      = None
+        self.APU_runng      = None
+        self.APU_N1         = None
+        self.APU_genrt      = None
+        self.GPU_power      = None
+        
+        """         Radar status        """
+        self.targ_selct     = None
+        
+        """     Hydraulic status        """
+        self.hydr_pump_n    = None
+        self.hydr_qty_n     = None
+        self.hydr_pres_n    = None
+        
+        """     elec & solar status     """
+        self.bus_n_amp      = None
+        self.bus_n_volt     = None
+        self.engin_in_W     = None
+        self.solar_out_W    = None
+        self.batt_w_hr      = None
+        self.Cross_tie      = None
+        
+        """     Icing status 1          """
+        self.inlet_ice      = None
+        self.prop_ice       = None
+        self.pitot_ice      = None
+        self.statc_ice      = None
+        
+        """     Icing status 1          """
+        self.aoa_ice        = None
+        self.lwing_ice      = None
+        self.rwing_ice      = None
+        self.windo_ice      = None
+        
+        """     Warning status          """
+        self.warn_time      = None
+        self.caut_time      = None
+        self.warn_work      = None
+        self.gear_work      = None
+        self.gear_warn      = None
+        self.stall_warn     = None
+        self.VRS_ratio      = None
+        
+        """     flite-plan legs         """
+        self.leg__          = None
+        self.leg_type       = None
+        self.leg_lat        = None
+        self.leg_lon        = None
+        
+        """     Hardware options        """
+        self.pedal_nobrk    = None
+        self.pedal_wibrk    = None
+        self.yoke_PFC       = None
+        self.pedal_PFC      = None
+        self.throt_PFC      = None
+        self.cecon_PFC      = None
+        self.switc_PFC      = None
+        self.btogg_PFC      = None
+        
+        """     Camera location         """
+        self.camra_lon      = None
+        self.camra_lat      = None
+        self.camra_ele      = None
+        self.camra_hdg      = None
+        self.camra_pitch    = None
+        self.camra_roll     = None
+        self.camra_clou     = None
+        
+        """     Ground location         """
+        self.cntr_X         = None
+        self.cntr_Y         = None
+        self.cntr_Z         = None
+        self.slope_X        = None
+        self.slope_Z        = None
+        
+        """     climb stats             """
+        self.h_spd_kt       = None
+        self.v_spd_fpm      = None
+        self.mult_VxVVI     = None
+        
+        """     cruise stats            """
+        self.ff_pph         = None
+        self.ff_gph         = None
+        self.speed_mph      = None
+        self.eta_smpg       = None
+        self.eta_nm_lb      = None
+        self.range_sm       = None
+        self.endur_hours    = None
+        self.mult_VxMPG     = None
+        
+        
+        
 
 
     def startListener(self):
