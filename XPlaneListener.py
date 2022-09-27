@@ -1,6 +1,5 @@
 import struct,socket
 
-
 class XPlaneListener:
     def __init__(self,xPlaneIP,xPlaneRecievePort,udpBufferSize):
         self.xPlaneIP = xPlaneIP
@@ -183,28 +182,28 @@ class XPlaneListener:
         self.alt_n_ftmsl    = None
 
         """     throttle actual         """
-        self.thron_part     = None
+        self.thro_n_part     = None
 
         """   feather-norm-beta-revers  """
-        self.moden_0123     = None
+        self.mode_n_0123     = None
 
         """         prop setting        """
-        self.propn_set      = None
+        self.prop_n_set      = None
 
         """     Mixture setting         """
-        self.mixtn_ratio    = None
+        self.mixt_n_ratio    = None
 
         """     carb heat setting       """
-        self.heatn_ratio    = None
+        self.heat_n_ratio    = None
 
         """     Cowl flap setting       """
-        self.cowln_set      = None
+        self.cowl_n_set      = None
 
         """     Magneto settings        """
-        self.magnn_set      = None
+        self.magn_n_set      = None
 
         """     Starter timeout         """
-        self.starn_sec      = None
+        self.star_n_sec      = None
 
         """     Engine power            """
         self.power_n_hp     = None
@@ -227,16 +226,16 @@ class XPlaneListener:
         """     propwash/jetwasg        """
         self.pwash_kt       = None
 
-        """     N1                      """
+        """         N1                  """
         self.N1_n_pcnt      = None
 
-        """     N2                      """
+        """         N2                  """
         self.N2_n_pcnt      = None
 
-        """     MP                      """
+        """         MP                  """
         self.MP_n_inhg      = None
 
-        """     EPR                     """
+        """         EPR                 """
         self.EPR_n_aprt     = None
 
         """         FF                  """
@@ -611,7 +610,7 @@ class XPlaneListener:
         self.test_time      = None
         self.diff_psi       = None
         self.dump_all       = None
-        self.bleed.src      = None
+        self.bleed_src      = None
         
         """     APU/GPU status          """
         self.APU_eqipd      = None
@@ -653,6 +652,7 @@ class XPlaneListener:
         self.warn_time      = None
         self.caut_time      = None
         self.warn_work      = None
+        self.caut_work      = None
         self.gear_work      = None
         self.gear_warn      = None
         self.stall_warn     = None
@@ -710,6 +710,12 @@ class XPlaneListener:
 
 
     def startListener(self):
+        """
+        Start UDP Listener for X-Plane
+
+        Returns:
+            _type_: socket
+        """
         xPlaneSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)  # Create a datagram socket
         xPlaneSocket.bind((self.xPlaneIP, self.xPlaneRecievePort))  # Bind to address and ip        
         print("UDP server up and listening...")
@@ -718,15 +724,25 @@ class XPlaneListener:
 
         
     def readMessage(self,message):
-        message = message[5:]               # Remove "DATA*" prefix from message
+        """
+        | DATA* | 4 Byte Message Index | 8 x 4 Byte Message |
+
+        Args:
+            message (_type_): UDP Data from X-Plane
+
+        Returns:
+            _type_: list
+        """
+        message = message[5:]                           # Remove "DATA*" prefix from message
+        messageLength = 36
         
-        messageCount = len(message)//36     # Devide and cast to int
-        xPlaneMessage = list()              # Create empty list
+        messageCount = len(message)//messageLength      # Devide and cast to int
+        xPlaneMessage = list()                          # Create empty list
         
         for row in range(messageCount):
             params = list()
-            packet=message[row*36:row*36+36]
-            dataIndex = struct.unpack("i",packet[0:4])[0]
+            packet=message[row*messageLength:row*messageLength+messageLength]               
+            dataIndex = struct.unpack("i",packet[0:4])[0]   # 4 Data Index's Length
             params.append(dataIndex)
             packet = packet[4:]
             for col in range(8):
@@ -742,6 +758,9 @@ class XPlaneListener:
             if xPlaneMessageIndex == 20:
                 self.lat_deg = (xPlaneMessage[1])
                 self.long_deg = (xPlaneMessage[2])
+                
+    def __privateFunction(self):
+        print("asd")
         
 
 
