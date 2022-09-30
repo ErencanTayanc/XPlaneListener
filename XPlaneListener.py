@@ -733,11 +733,10 @@ class XPlaneListener:
         Returns:
             _type_: list
         """
-        message = message[5:]                           # Remove "DATA*" prefix from message
-        messageLength = 36
-        
-        messageCount = len(message)//messageLength      # Devide and cast to int
-        xPlaneMessage = list()                          # Create empty list
+        message = message[5:]                               # Remove "DATA*" prefix from message
+        messageLength = 36                                  # 4 Byte Data Index + 8 x (4 Byte Data)        
+        messageCount = len(message)//messageLength          # Devide and cast to int
+        xPlaneMessage = list()                              # Create empty list
         
         for row in range(messageCount):
             params = list()
@@ -755,12 +754,224 @@ class XPlaneListener:
     def temp(self):
         for xPlaneMessage in self.xPlaneMessageList:
             xPlaneMessageIndex = xPlaneMessage[0]
-            if xPlaneMessageIndex == 20:
-                self.lat_deg = (xPlaneMessage[1])
-                self.long_deg = (xPlaneMessage[2])
-                
-    def __privateFunction(self):
-        print("asd")
+            if xPlaneMessageIndex == 1:
+                self.__setFrameRate(xPlaneMessage)
+            elif xPlaneMessageIndex == 2:
+                self.__setTimes(xPlaneMessage)
+            elif xPlaneMessageIndex == 3:
+                self.__setSimStats(xPlaneMessage)
+            
+            
+  
+    def __setFrameRate(self,msg):
+        """ Private Method. """
+        self.f_act_sec  = msg[1]
+        self.f_sim_sec  = msg[2]
+        self.frame_time = msg[3]
+        self.cpu_time   = msg[4]
+        self.gpu_time   = msg[5]
+        self.grnd_ratio = msg[6]
+        self.flit_ratio = msg[7]
         
-
-
+    def __setTimes(self,msg):
+        """ Private Method. """
+        self.real_time  = msg[1]
+        self.totl_time  = msg[2]
+        self.missn_time = msg[3]
+        self.timer_time = msg[4]
+        self.zulu_time  = msg[5]
+        self.local_time = msg[6]
+        self.hobbs_time = msg[7]
+        
+    def __setSimStats(self,msg):
+        """ Private Method. """
+        self.explo_DIM  = msg[1]
+        self.explo_USE  = msg[2]
+        self.cratr_DIM  = msg[3]
+        self.cratr_USE  = msg[4]
+        self.puffs_TOT  = msg[5]
+        self.puffs_VIS  = msg[6]
+        self.tris_vis   = msg[7]
+        self.tris_vis   = msg[8]
+        
+    def __setSpeeds(self,msg):
+        """ Private Method. """
+        self.Vind_kias   = msg[1]
+        self.Vind_keas   = msg[2]
+        self.Vtrue_ktas  = msg[3]
+        self.Vtrue_ktgs  = msg[4]
+        self.Vind_mph    = msg[5]
+        self.Vtrue_mphas = msg[6]
+        self.Vtrue_mphgs = msg[7]
+        
+    def __setMachVVIGload(self,msg):
+        """ Private Method. """
+        self.Mach_ratio   = msg[1]
+        self.VVI_fpm      = msg[2]
+        self.Gload_norml  = msg[3]
+        self.Gload_axial  = msg[4]
+        self.Gload_side   = msg[5]
+        
+    def __setAtmosphereWeather(self,msg):
+        """ Private Method. """
+        self.SLprs_inHG = msg[1]
+        self.SLtmp_degC = msg[2]
+        self.wind_speed = msg[3]
+        self.wind_dir   = msg[4]
+        self.trb_locl   = msg[5]
+        self.prec_locl  = msg[6]
+        self.hail_locl  = msg[7]
+        
+    def __setAtmosphereAircraft(self,msg):
+        """ Private Method. """
+        self.AMprs_inHG = msg[1]
+        self.AMtmp_degC = msg[2]
+        self.LEtmp_degC = msg[3]
+        self.dens_ratio = msg[4]
+        self.A_ktas     = msg[5]
+        self.Q_psf      = msg[6]
+        self.gravi_fts2 = msg[7]
+    
+    def __setSystemPressures(self,msg):
+        self.baro_inHG   = msg[1]
+        self.edens_part  = msg[2]
+        self.vacum_ratio = msg[3]
+        self.elec_ratio  = msg[4]
+        self.AHRS_ratio  = msg[5]
+        
+    def __setJoystickAilElvRud(self,msg):
+        self.elev_yoke1   = msg[1]
+        self.ailrn_yoke1  = msg[2]
+        self.ruddr_yoke1  = msg[3]    
+        
+    
+    
+    def __set_frame_rate(self,msg):pass
+    def __set_times(self,msg):pass
+    def __set_sim_stats(self,msg):pass
+    def __set_speeds(self,msg):pass
+    def __set_mach_vvi_g_load(self,msg):pass
+    def __set_atmosphere_weather(self,msg):pass
+    def __set_atmosphere_aircraft(self,msg):pass
+    def __set_system_pressures(self,msg):pass
+    def __set_joystick_ail_elv_rud(self,msg):pass
+    def __set_other_flight_controls(self,msg):pass
+    def __set_art_stab_ail_elv_rud(self,msg):pass
+    def __set_flight_con_ail_elv_rud(self,msg):pass
+    def __set_wing_sweep_thrust_vect(self,msg):pass
+    def __set_trim_flap_slat_s_brakes(self,msg):pass
+    def __set_gear_brakes(self,msg):pass
+    def __set_angular_moments(self,msg):pass
+    def __set_pitch_roll_headings(self,msg):pass
+    def __set_aoa_side_slip_paths(self,msg):pass
+    def __set_mag_compass(self,msg):pass
+    def __set_lat_lon_altitude(self,msg):pass
+    def __set_loc_vel_dist_traveled(self,msg):pass
+    def __set_all_planes_lat(self,msg):pass
+    def __set_all_planes_lon(self,msg):pass
+    def __set_all_planes_alt(self,msg):pass
+    def __set_throttle_command(self,msg):pass
+    def __set_throttle_actual(self,msg):pass
+    def __set_feather_norm_beta_revers(self,msg):pass
+    def __set_prop_setting(self,msg):pass
+    def __set_mixture_setting(self,msg):pass
+    def __set_carb_heat_setting(self,msg):pass
+    def __set_cowl_flap_setting(self,msg):pass
+    def __set_magneto_settings(self,msg):pass
+    def __set_starter_timeout(self,msg):pass
+    def __set_engine_power(self,msg):pass
+    def __set_engine_thrust(self,msg):pass
+    def __set_engine_torque(self,msg):pass
+    def __set_engine_rpm(self,msg):pass
+    def __set_prop_rpm(self,msg):pass
+    def __set_prop_pitch(self,msg):pass
+    def __set_propwash_jetwash(self,msg):pass
+    def __set_n1(self,msg):pass
+    def __set_n2(self,msg):pass
+    def __set_mp(self,msg):pass
+    def __set_epr(self,msg):pass
+    def __set_ff(self,msg):pass
+    def __set_itt(self,msg):pass
+    def __set_egt(self,msg):pass
+    def __set_cht(self,msg):pass
+    def __set_oil_pressure(self,msg):pass
+    def __set_oil_temp(self,msg):pass
+    def __set_fuel_pressure(self,msg):pass
+    def __set_generator_amperage(self,msg):pass
+    def __set_battery_amperage(self,msg):pass
+    def __set_battery_voltage(self,msg):pass
+    def __set_fuel_pump_on_off(self,msg):pass
+    def __set_idle_speed_lo_hi(self,msg):pass
+    def __set_battery_on_off(self,msg):pass
+    def __set_generator_on_off(self,msg):pass
+    def __set_inverter_on_off(self,msg):pass
+    def __set_fadec_on_off(self,msg):pass
+    def __set_igniter_on_off(self,msg):pass
+    def __set_fuel_weights(self,msg):pass
+    def __set_payload_weights_and_cg(self,msg):pass
+    def __set_aero_forces(self,msg):pass
+    def __set_engine_forces(self,msg):pass
+    def __set_landing_gear_vert_force(self,msg):pass
+    def __set_landing_gear_deployment(self,msg):pass
+    def __set_lift_over_drag_coeffs(self,msg):pass
+    def __set_prop_efficiency(self,msg):pass
+    def __set_defs_ailerons(self,msg):pass
+    def __set_defs_roll_spoilers(self,msg):pass
+    def __set_defs_elevators(self,msg):pass
+    def __set_defs_rudders(self,msg):pass
+    def __set_defs_yaw_brakes(self,msg):pass
+    def __set_control_forces(self,msg):pass
+    def __set_total_vert_thrust_vects(self,msg):pass
+    def __set_total_lat_thrust_vects(self,msg):pass
+    def __set_pitch_cyclic_disc_tilts(self,msg):pass
+    def __set_roll_cyclic_disc_tilts(self,msg):pass
+    def __set_pitch_cyclic_flapping(self,msg):pass
+    def __set_roll_cyclic_flapping(self,msg):pass
+    def __set_grnd_effect_lift_wings(self,msg):pass
+    def __set_grnd_effect_drag_wings(self,msg):pass
+    def __set_grnd_effect_wash_wings(self,msg):pass
+    def __set_grnd_effect_lift_stabs(self,msg):pass
+    def __set_grnd_effect_drag_stabs(self,msg):pass
+    def __set_grnd_effect_wash_stabs(self,msg):pass
+    def __set_grnd_effect_lift_props(self,msg):pass
+    def __set_grnd_effect_drag_props(self,msg):pass
+    def __set_wing_lift(self,msg):pass
+    def __set_wing_drag(self,msg):pass
+    def __set_stab_lift(self,msg):pass
+    def __set_stab_drag(self,msg):pass
+    def __set_com_1_2_frequency(self,msg):pass
+    def __set_nav_1_2_frequency(self,msg):pass
+    def __set_nav_1_2_obs(self,msg):pass
+    def __set_adf_1_2_status(self,msg):pass
+    def __set_dme_status(self,msg):pass
+    def __set_gps_status(self,msg):pass
+    def __set_xpndr_status(self,msg):pass
+    def __set_marker_status(self,msg):pass
+    def __set_switches_1_electrical(self,msg):pass
+    def __set_switches_2_efis(self,msg):pass
+    def __set_switches_3_ap_f_dir_hud(self,msg):pass
+    def __set_switches_4_anti_ice(self,msg):pass
+    def __set_switches_5_anti_ice_fuel(self,msg):pass
+    def __set_switches_6_clutch_astab(self,msg):pass
+    def __set_switches_7_misc(self,msg):pass
+    def __set_annunciators_general(self,msg):pass
+    def __set_annunciators_general(self,msg):pass
+    def __set_annunciators_engine(self,msg):pass
+    def __set_autopilot_arms(self,msg):pass
+    def __set_autopilot_modes(self,msg):pass
+    def __set_autopilot_values(self,msg):pass
+    def __set_weapon_status(self,msg):pass
+    def __set_pressurization_status(self,msg):pass
+    def __set_apu_gpu_status(self,msg):pass
+    def __set_radar_status(self,msg):pass
+    def __set_hydraulic_status(self,msg):pass
+    def __set_elec_amp_solar_status(self,msg):pass
+    def __set_icing_status_1(self,msg):pass
+    def __set_icing_status_2(self,msg):pass
+    def __set_warning_status(self,msg):pass
+    def __set_flite_plan_legs(self,msg):pass
+    def __set_hardware_options(self,msg):pass
+    def __set_camera_location(self,msg):pass
+    def __set_ground_location(self,msg):pass
+    def __set_climb_stats(self,msg):pass
+    def __set_cruise_stats(self,msg):pass

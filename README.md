@@ -18,8 +18,7 @@ wing*n*, L cl*      =>  wing_n_L_cl_<br>
 <details>
 <summary>Click to see X-Plane Data Set Output Table</summary>
 
-<table border="1">
-            <colgroup>
+<table>
             <col style="text-align: center;">
             <col style="text-align: left;"> </colgroup>
             <thead>
